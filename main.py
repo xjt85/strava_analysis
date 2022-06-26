@@ -141,7 +141,14 @@ def main():
         # my_dataset = get_dataset(access_token)
         with open('response.json', 'r', encoding='utf-8') as f:
             my_dataset = json.load(f)
-        df = pd.json_normalize(my_dataset)
+        # df = pd.json_normalize(my_dataset)
+        result = ''
+        for item in my_dataset:
+            if str(item['map']['summary_polyline']) != 'None':
+                result += "'" + str(item['map']['summary_polyline']) + "',\n"
+        
+        with open('tracks.json', 'w', encoding='utf-8') as f:
+            f.write(result)
 
         
     except Exception as e:
